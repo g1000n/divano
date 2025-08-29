@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'welcome_screen.dart';
 
-class LoginScreen extends StatelessWidget {
+class SignupScreen extends StatelessWidget {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
 
-  // You can adjust these values to reposition logo and input block
-  final double logoTopOffset = 270; // Moves the logo up/down
-  final double inputTopOffset = 430; // Moves username/password block up/down
+  // Adjust this to move the entire input block up/down
+  final double inputTopOffset =
+      300; // change this value to position the input block
+
+  // Adjust logo position
+  final double logoTopOffset = 150;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +27,6 @@ class LoginScreen extends StatelessWidget {
               left: 16,
               child: GestureDetector(
                 onTap: () {
-                  // Navigate back to WelcomeScreen
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
@@ -41,7 +44,7 @@ class LoginScreen extends StatelessWidget {
 
             // Logo
             Positioned(
-              top: logoTopOffset, // adjust to move logo lower or higher
+              top: logoTopOffset,
               left: 0,
               right: 0,
               child: Center(
@@ -53,20 +56,20 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
 
-            // Username/Password block
+            // Input block (Username / Password / Confirm Password)
             Positioned(
-              top: inputTopOffset, // adjust to move inputs lower or higher
+              top: inputTopOffset,
               left: 24,
               right: 24,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Username field
+                  // Create Username
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Username',
+                        'Create Username',
                         style: TextStyle(color: greenColor, fontSize: 22),
                       ),
                       const SizedBox(height: 6),
@@ -103,15 +106,14 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-
                   const SizedBox(height: 12),
 
-                  // Password field
+                  // Create Password
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Password',
+                        'Create Password',
                         style: TextStyle(color: greenColor, fontSize: 22),
                       ),
                       const SizedBox(height: 6),
@@ -149,36 +151,70 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ],
                   ),
+                  const SizedBox(height: 12),
 
-                  const SizedBox(height: 1),
-
-                  // Forgot Password
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        'Forgot Password?',
-                        style: TextStyle(color: greenColor, fontSize: 14),
+                  // Confirm Password
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Confirm Password',
+                        style: TextStyle(color: greenColor, fontSize: 22),
                       ),
-                    ),
+                      const SizedBox(height: 6),
+                      TextFormField(
+                        controller: _confirmPasswordController,
+                        style: const TextStyle(color: greenColor, fontSize: 16),
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: 14,
+                            horizontal: 12,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: const BorderSide(
+                              color: greenColor,
+                              width: 2,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: const BorderSide(
+                              color: greenColor,
+                              width: 2,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: const BorderSide(
+                              color: greenColor,
+                              width: 2,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
 
-            // Forward button bottom-center
+            // Confirm Sign Up text button bottom-center
             Positioned(
-              bottom: 140, // distance from bottom
+              bottom: 140,
               left: 0,
               right: 0,
               child: Center(
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Image.asset(
-                    'assets/images/forward_button.png',
-                    width: 60,
-                    height: 60,
+                child: TextButton(
+                  onPressed: () {},
+                  child: const Text(
+                    'Confirm Sign Up',
+                    style: TextStyle(
+                      color: greenColor,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),

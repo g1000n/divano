@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'login_screen.dart'; // 👈 import your login screen
+import 'login_screen.dart';
+import 'signup_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -51,13 +52,18 @@ class WelcomeScreen extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 12), // slightly smaller gap
+
                 // Sign Up button
                 SizedBox(
                   width: double.infinity,
-                  height: 55, // same fatness
+                  height: 55,
                   child: OutlinedButton(
                     onPressed: () {
-                      // Sign Up action (for later)
+                      // ✅ navigate to SignupScreen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SignupScreen()),
+                      );
                     },
                     style: OutlinedButton.styleFrom(
                       side: const BorderSide(color: Color(0xFFCAEB78)),
