@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'login_screen.dart'; // 👈 import your login screen
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -30,7 +31,11 @@ class WelcomeScreen extends StatelessWidget {
                   height: 55, // slightly fatter
                   child: ElevatedButton(
                     onPressed: () {
-                      // Login action
+                      // ✅ navigate to LoginScreen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFCAEB78),
@@ -52,7 +57,7 @@ class WelcomeScreen extends StatelessWidget {
                   height: 55, // same fatness
                   child: OutlinedButton(
                     onPressed: () {
-                      // Sign Up action
+                      // Sign Up action (for later)
                     },
                     style: OutlinedButton.styleFrom(
                       side: const BorderSide(color: Color(0xFFCAEB78)),
@@ -73,7 +78,7 @@ class WelcomeScreen extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: TextButton(
                     onPressed: () {
-                      // Forgot password action
+                      // Forgot password action (placeholder)
                     },
                     child: const Text(
                       'Forgot Password?',
