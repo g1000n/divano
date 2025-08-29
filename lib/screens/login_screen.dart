@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'welcome_screen.dart';
+import 'dashboard_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   final _usernameController = TextEditingController();
@@ -169,12 +170,19 @@ class LoginScreen extends StatelessWidget {
 
             // Forward button bottom-center
             Positioned(
-              bottom: 140, // distance from bottom
+              bottom: 140,
               left: 0,
               right: 0,
               child: Center(
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const DashboardScreen(),
+                      ),
+                    );
+                  },
                   child: Image.asset(
                     'assets/images/forward_button.png',
                     width: 60,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'welcome_screen.dart';
+import 'dashboard_screen.dart';
 
 class SignupScreen extends StatelessWidget {
   final _usernameController = TextEditingController();
@@ -159,7 +160,7 @@ class SignupScreen extends StatelessWidget {
                     children: [
                       const Text(
                         'Confirm Password',
-                        style: TextStyle(color: greenColor, fontSize: 22),
+                        style: TextStyle(color: greenColor, fontSize: 18),
                       ),
                       const SizedBox(height: 6),
                       TextFormField(
@@ -207,7 +208,14 @@ class SignupScreen extends StatelessWidget {
               right: 0,
               child: Center(
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DashboardScreen(),
+                      ),
+                    );
+                  },
                   child: const Text(
                     'Confirm Sign Up',
                     style: TextStyle(

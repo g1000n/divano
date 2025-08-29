@@ -67,6 +67,15 @@ flutter:
     - assets/images/secondary_logo.png
     - assets/images/forward_button.png
     - assets/images/back_button.png
+    - assets/images/home_icon.png
+    - assets/images/logistics_icon.png
+    - assets/images/qr_icon.png
+    - assets/images/inventory_icon.png
+    - assets/images/profile_icon.png
+    - assets/images/inventory_dash_icon.png
+    - assets/images/incoming_dash_icon.png
+    - assets/images/outgoing_dash_icon.png
+    - assets/images/transactions_dash_icon.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 
