@@ -1,4 +1,11 @@
 import 'package:flutter/material.dart';
+import 'inventory_screen.dart';
+import 'profile_screen.dart';
+import 'qr_screen.dart';
+import 'transactions_screen.dart';
+import '../widgets/custom_navbar.dart'; // adjust path if needed
+
+// import 'logistics_screen.dart'; // if you have this screen
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -24,12 +31,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
     color: Color(0xFFD8FF76),
   );
 
-static const weeklyReportTitleStyle = TextStyle(
-  fontSize: 26, // bigger than content
-  fontWeight: FontWeight.bold,
-  color: Color(0xFF4F6F00),
-);
-
+  static const weeklyReportTitleStyle = TextStyle(
+    fontSize: 26,
+    fontWeight: FontWeight.bold,
+    color: Color(0xFF4F6F00),
+  );
 
   static const weeklyReportContentStyle = TextStyle(
     fontSize: 16,
@@ -59,31 +65,33 @@ static const weeklyReportTitleStyle = TextStyle(
     );
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   // Helper widget for bottom cards
   Widget bottomCard(
     String asset,
     String label,
     Color bgColor,
-    Color textColor,
-  ) {
-    return buildCard(
-      bgColor,
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Image.asset(asset, height: gridCardIconSize, width: gridCardIconSize),
-          const SizedBox(width: gridCardSpacing),
-          Text(
-            label,
-            style: bottomCardTextStyleBase.copyWith(color: textColor),
-          ),
-        ],
+    Color textColor, {
+    VoidCallback? onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      child: buildCard(
+        bgColor,
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.asset(
+              asset,
+              height: gridCardIconSize,
+              width: gridCardIconSize,
+            ),
+            const SizedBox(width: gridCardSpacing),
+            Text(
+              label,
+              style: bottomCardTextStyleBase.copyWith(color: textColor),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -127,10 +135,7 @@ static const weeklyReportTitleStyle = TextStyle(
                         children: [
                           Icon(Icons.star, color: Color(0xFF4F6F00)),
                           SizedBox(width: 6),
-                          Text(
-                            'Weekly Report',
-                            style: weeklyReportTitleStyle,
-                          ),
+                          Text('Weekly Report', style: weeklyReportTitleStyle),
                         ],
                       ),
                       SizedBox(height: 10),
@@ -174,24 +179,56 @@ static const weeklyReportTitleStyle = TextStyle(
                       'Incoming',
                       incomingColor,
                       const Color(0xFF593190),
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const TransactionsScreen(),
+                          ),
+                        );
+                      },
                     ),
                     bottomCard(
                       'assets/images/outgoing_dash_icon.png',
                       'Outgoing',
                       outgoingColor,
                       const Color(0xFF9B0E82),
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const TransactionsScreen(),
+                          ),
+                        );
+                      },
                     ),
                     bottomCard(
                       'assets/images/transactions_dash_icon.png',
                       'Transactions',
                       transactionsColor,
                       const Color(0xFF90760F),
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const TransactionsScreen(),
+                          ),
+                        );
+                      },
                     ),
                     bottomCard(
                       'assets/images/inventory_dash_icon.png',
                       'Inventory',
                       inventoryColor,
                       const Color(0xFF045A81),
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const InventoryScreen(),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -200,73 +237,8 @@ static const weeklyReportTitleStyle = TextStyle(
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color(0xFF1E2237),
-        selectedItemColor: weeklyReportColor,
-        unselectedItemColor: weeklyReportColor.withOpacity(0.45),
-        currentIndex: _selectedIndex,
-        showUnselectedLabels: false,
-        showSelectedLabels: false,
-        onTap: _onItemTapped,
-        type: BottomNavigationBarType.fixed,
-        items: [
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              'assets/images/home_icon.png',
-              height: 40,
-              width: 40,
-              color: _selectedIndex == 0
-                  ? weeklyReportColor
-                  : weeklyReportColor.withOpacity(0.45),
-            ),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              'assets/images/logistics_icon.png',
-              height: 45,
-              width: 45,
-              color: _selectedIndex == 1
-                  ? weeklyReportColor
-                  : weeklyReportColor.withOpacity(0.45),
-            ),
-            label: 'Logistics',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              'assets/images/qr_icon.png',
-              height: 60,
-              width: 60,
-              color: _selectedIndex == 2
-                  ? weeklyReportColor
-                  : weeklyReportColor.withOpacity(0.45),
-            ),
-            label: 'Scan',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              'assets/images/inventory_icon.png',
-              height: 37,
-              width: 37,
-              color: _selectedIndex == 3
-                  ? weeklyReportColor
-                  : weeklyReportColor.withOpacity(0.45),
-            ),
-            label: 'Inventory',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              'assets/images/profile_icon.png',
-              height: 40,
-              width: 40,
-              color: _selectedIndex == 4
-                  ? weeklyReportColor
-                  : weeklyReportColor.withOpacity(0.45),
-            ),
-            label: 'Profile',
-          ),
-        ],
-      ),
+
+      bottomNavigationBar: CustomNavBar(selectedIndex: _selectedIndex),
     );
   }
 }
