@@ -4,7 +4,7 @@ import '../widgets/screen_header.dart';
 import 'dashboard_screen.dart';
 import 'inventory_screen.dart';
 import 'qr_screen.dart';
-import 'transactions_screen.dart';
+
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

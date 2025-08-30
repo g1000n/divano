@@ -23,13 +23,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   static const transactionsColor = Color(0xFFFDDE66);
   static const inventoryColor = Color(0xFF95DBFA);
 
-  // Styles
-  static const headerStyle = TextStyle(
-    fontSize: 46,
-    fontWeight: FontWeight.bold,
-    color: Color(0xFFD8FF76),
-  );
-
   static const weeklyReportTitleStyle = TextStyle(
     fontSize: 26,
     fontWeight: FontWeight.bold,
@@ -48,7 +41,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   );
 
   // Constants
-  static const double dashboardLogoHeight = 59;
   static const double weeklyReportCardHeight = 150;
   static const double gridCardIconSize = 24;
   static const double gridCardSpacing = 8;
