@@ -2,31 +2,195 @@ import 'package:flutter/material.dart';
 import '../widgets/screen_header.dart';
 import 'dashboard_screen.dart';
 
-class TransactionsScreen extends StatelessWidget {
+class TransactionsScreen extends StatefulWidget {
   const TransactionsScreen({super.key});
 
   @override
+  State<TransactionsScreen> createState() => _TransactionsScreenState();
+}
+
+class _TransactionsScreenState extends State<TransactionsScreen> {
+  bool isIncomingSelected = false;
+  String selectedSort = 'Date';
+
+  final List<String> sortOptions = ['Date', 'Amount', 'Name'];
+
+  // Dummy transaction data
+  final List<Map<String, String>> outgoingTransactions = List.generate(5, (
+    index,
+  ) {
+    return {
+      'title': 'Lorem Ipsum',
+      'subtitle': 'Lorem ipsum dolor sit amet.',
+      'status': 'Completed',
+    };
+  });
+
+  @override
   Widget build(BuildContext context) {
+    final Color bgColor = const Color(0xFF1E2237);
+    final Color accentColor = const Color(0xFFCCFF66); // greenish accent
+    final Color cardBgColor = const Color(0xFF2A2E43);
+
     return Scaffold(
-      backgroundColor: const Color(0xFF1E2237),
+      backgroundColor: bgColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 18.0,
-          ).copyWith(top: 40),
+          padding: const EdgeInsets.symmetric(horizontal: 18).copyWith(top: 40),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const ScreenHeader(title: "Transactions"),
+              const ScreenHeader(title: "Transaction"),
               const SizedBox(height: 20),
 
-              // Content placeholder
-              const Expanded(
-                child: Center(
-                  child: Text(
-                    "Transactions Content Here",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+              // ✅ Centered Toggle Buttons
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildToggleButton(
+                    label: "Incoming",
+                    isSelected: isIncomingSelected,
+                    onTap: () {
+                      setState(() {
+                        isIncomingSelected = true;
+                      });
+                    },
                   ),
+                  const SizedBox(width: 12),
+                  _buildToggleButton(
+                    label: "Outgoing",
+                    isSelected: !isIncomingSelected,
+                    onTap: () {
+                      setState(() {
+                        isIncomingSelected = false;
+                      });
+                    },
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 16),
+
+              // ✅ Sort by dropdown (shorter height)
+              Row(
+                children: [
+                  Text(
+                    "Sort by: ",
+                    style: TextStyle(
+                      color: accentColor,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 0, // ✅ fixed shorter height
+                    ),
+                    height: 32, // ✅ matches toggle button height
+                    decoration: BoxDecoration(
+                      border: Border.all(color: accentColor),
+                      borderRadius: BorderRadius.circular(7),
+                    ),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        value: selectedSort,
+                        dropdownColor: bgColor,
+                        iconEnabledColor: accentColor,
+                        style: TextStyle(color: accentColor, fontSize: 13),
+                        items: sortOptions.map((String val) {
+                          return DropdownMenuItem<String>(
+                            value: val,
+                            child: Text(val),
+                          );
+                        }).toList(),
+                        onChanged: (val) {
+                          if (val != null) {
+                            setState(() {
+                              selectedSort = val;
+                            });
+                          }
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 20),
+
+              // Transactions List
+              Expanded(
+                child: ListView.separated(
+                  itemCount: outgoingTransactions.length,
+                  separatorBuilder: (_, __) =>
+                      Divider(color: Colors.white12, height: 1, thickness: 1),
+                  itemBuilder: (context, index) {
+                    final item = outgoingTransactions[index];
+                    return Container(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          // ✅ Just the icon (no surrounding box)
+                          Image.asset(
+                            'assets/images/box_transc_icon.png',
+                            width: 30,
+                            height: 30,
+                            color: accentColor,
+                          ),
+
+                          const SizedBox(width: 16),
+
+                          // Title and description
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  item['title']!,
+                                  style: TextStyle(
+                                    color: accentColor,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  item['subtitle']!,
+                                  style: TextStyle(
+                                    color: accentColor.withOpacity(0.6),
+                                    fontSize: 13,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          // Status badge
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(24),
+                              border: Border.all(color: accentColor),
+                            ),
+                            child: Text(
+                              item['status']!,
+                              style: TextStyle(
+                                color: accentColor,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
               ),
 
@@ -41,7 +205,7 @@ class TransactionsScreen extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (context) => const DashboardScreen(),
                       ),
-                      (route) => false, // remove all previous routes
+                      (route) => false,
                     );
                   },
                   child: Image.asset(
@@ -53,6 +217,38 @@ class TransactionsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // ✅ Reusable toggle button
+  Widget _buildToggleButton({
+    required String label,
+    required bool isSelected,
+    required VoidCallback onTap,
+  }) {
+    final Color accentColor = const Color(0xFFCCFF66);
+
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(10),
+      child: Container(
+        width: 165, // 🔥 adjustable length of toggle buttons
+        height: 32,
+        decoration: BoxDecoration(
+          color: isSelected ? accentColor : Colors.transparent,
+          borderRadius: BorderRadius.circular(7),
+          border: Border.all(color: accentColor),
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          label,
+          style: TextStyle(
+            color: isSelected ? Colors.black : accentColor,
+            fontWeight: FontWeight.w600,
+            fontSize: 14,
           ),
         ),
       ),
