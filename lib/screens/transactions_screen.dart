@@ -1,22 +1,9 @@
 import 'package:flutter/material.dart';
-import '../widgets/custom_navbar.dart'; // adjust path if needed
+import '../widgets/screen_header.dart';
+import 'dashboard_screen.dart';
 
-class TransactionsScreen extends StatefulWidget {
+class TransactionsScreen extends StatelessWidget {
   const TransactionsScreen({super.key});
-
-  @override
-  State<TransactionsScreen> createState() => _TransactionsScreenState();
-}
-
-class _TransactionsScreenState extends State<TransactionsScreen> {
-  // Constants
-  static const double dashboardLogoHeight = 59;
-
-  static const headerStyle = TextStyle(
-    fontSize: 46,
-    fontWeight: FontWeight.bold,
-    color: Color(0xFFD8FF76),
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -30,37 +17,45 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header with logo + title
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    "assets/images/secondary_logo.png",
-                    height: dashboardLogoHeight,
-                    width: dashboardLogoHeight,
-                  ),
-                  const SizedBox(width: 2),
-                  const Text('Transactions', style: headerStyle),
-                ],
-              ),
+              const ScreenHeader(title: "Transactions"),
               const SizedBox(height: 20),
 
-              // Placeholder for future Transactions content
-              const Center(
-                child: Text(
-                  "Transactions Content Here",
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+              // Content placeholder
+              const Expanded(
+                child: Center(
+                  child: Text(
+                    "Transactions Content Here",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
                 ),
               ),
+
+              // Back button at bottom
+              Center(
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(30),
+                  onTap: () {
+                    // ✅ Always go back to Dashboard instead of Welcome
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const DashboardScreen(),
+                      ),
+                      (route) => false, // remove all previous routes
+                    );
+                  },
+                  child: Image.asset(
+                    'assets/images/back_button.png',
+                    width: 60,
+                    height: 60,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
             ],
           ),
         ),
       ),
-
-      // Bottom Navigation Bar
-      bottomNavigationBar: const CustomNavBar(
-        selectedIndex: 3,
-      ), // Transactions tab index
     );
   }
 }

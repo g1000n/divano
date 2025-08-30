@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import '../widgets/custom_navbar.dart'; // adjust path if needed
+import '../widgets/custom_navbar.dart';
+import '../widgets/screen_header.dart';
+import 'dashboard_screen.dart';
+import 'inventory_screen.dart';
+import 'qr_screen.dart';
+import 'transactions_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -9,14 +14,38 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  // Constants
-  static const double dashboardLogoHeight = 59;
+  int _selectedIndex = 4; // Profile tab index
 
-  static const headerStyle = TextStyle(
-    fontSize: 46,
-    fontWeight: FontWeight.bold,
-    color: Color(0xFFD8FF76),
-  );
+  // Handle navbar taps
+  void _onNavTap(int index) {
+    if (index == _selectedIndex) return;
+
+    switch (index) {
+      case 0:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const DashboardScreen()),
+        );
+        break;
+      case 1:
+        // LogisticsScreen() if exists
+        break;
+      case 2:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const QRScreen()),
+        );
+        break;
+      case 3:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const InventoryScreen()),
+        );
+        break;
+      case 4:
+        break; // already on Profile
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,24 +58,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ).copyWith(top: 40),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Header with logo + title
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    "assets/images/secondary_logo.png",
-                    height: dashboardLogoHeight,
-                    width: dashboardLogoHeight,
-                  ),
-                  const SizedBox(width: 2),
-                  const Text('Profile', style: headerStyle),
-                ],
-              ),
-              const SizedBox(height: 20),
+            children: const [
+              // Use reusable header
+              ScreenHeader(title: "Profile"),
+              SizedBox(height: 20),
 
               // Placeholder for future Profile content
-              const Center(
+              Center(
                 child: Text(
                   "Profile Content Here",
                   style: TextStyle(color: Colors.white, fontSize: 20),
@@ -58,9 +76,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
 
       // Bottom Navigation Bar
-      bottomNavigationBar: const CustomNavBar(
-        selectedIndex: 4,
-      ), // Profile tab index
+      bottomNavigationBar: CustomNavBar(
+        selectedIndex: _selectedIndex,
+        onTap: _onNavTap,
+      ),
     );
   }
 }

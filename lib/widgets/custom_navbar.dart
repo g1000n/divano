@@ -1,62 +1,27 @@
 import 'package:flutter/material.dart';
-import '../screens/dashboard_screen.dart';
-import '../screens/inventory_screen.dart';
-import '../screens/profile_screen.dart';
-import '../screens/qr_screen.dart';
-// import '../screens/logistics_screen.dart'; // if you have it
-
 
 class CustomNavBar extends StatelessWidget {
   final int selectedIndex;
+  final void Function(int) onTap; // callback for navigation
 
-  const CustomNavBar({super.key, required this.selectedIndex});
-
-  void _onItemTapped(BuildContext context, int index) {
-    if (index == selectedIndex) return; // do nothing if same tab
-
-    switch (index) {
-      case 0:
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => const DashboardScreen()),
-        );
-        break;
-      case 1:
-        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const LogisticsScreen()));
-        break;
-      case 2:
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => const QRScreen()),
-        );
-        break;
-      case 3:
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => const InventoryScreen()),
-        );
-        break;
-      case 4:
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => const ProfileScreen()),
-        );
-        break;
-    }
-  }
+  const CustomNavBar({
+    super.key,
+    required this.selectedIndex,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    const weeklyReportColor = Color(0xFFD8FF76);
+    const navColor = Color(0xFFD8FF76);
 
     return BottomNavigationBar(
       backgroundColor: const Color(0xFF1E2237),
-      selectedItemColor: weeklyReportColor,
-      unselectedItemColor: weeklyReportColor.withOpacity(0.45),
+      selectedItemColor: navColor,
+      unselectedItemColor: navColor.withOpacity(0.45),
       currentIndex: selectedIndex,
       showUnselectedLabels: false,
       showSelectedLabels: false,
-      onTap: (index) => _onItemTapped(context, index),
+      onTap: onTap,
       type: BottomNavigationBarType.fixed,
       items: [
         BottomNavigationBarItem(
@@ -64,9 +29,7 @@ class CustomNavBar extends StatelessWidget {
             'assets/images/home_icon.png',
             height: 40,
             width: 40,
-            color: selectedIndex == 0
-                ? weeklyReportColor
-                : weeklyReportColor.withOpacity(0.45),
+            color: selectedIndex == 0 ? navColor : navColor.withOpacity(0.45),
           ),
           label: 'Home',
         ),
@@ -75,9 +38,7 @@ class CustomNavBar extends StatelessWidget {
             'assets/images/logistics_icon.png',
             height: 45,
             width: 45,
-            color: selectedIndex == 1
-                ? weeklyReportColor
-                : weeklyReportColor.withOpacity(0.45),
+            color: selectedIndex == 1 ? navColor : navColor.withOpacity(0.45),
           ),
           label: 'Logistics',
         ),
@@ -86,9 +47,7 @@ class CustomNavBar extends StatelessWidget {
             'assets/images/qr_icon.png',
             height: 60,
             width: 60,
-            color: selectedIndex == 2
-                ? weeklyReportColor
-                : weeklyReportColor.withOpacity(0.45),
+            color: selectedIndex == 2 ? navColor : navColor.withOpacity(0.45),
           ),
           label: 'Scan',
         ),
@@ -97,9 +56,7 @@ class CustomNavBar extends StatelessWidget {
             'assets/images/inventory_icon.png',
             height: 37,
             width: 37,
-            color: selectedIndex == 3
-                ? weeklyReportColor
-                : weeklyReportColor.withOpacity(0.45),
+            color: selectedIndex == 3 ? navColor : navColor.withOpacity(0.45),
           ),
           label: 'Inventory',
         ),
@@ -108,9 +65,7 @@ class CustomNavBar extends StatelessWidget {
             'assets/images/profile_icon.png',
             height: 40,
             width: 40,
-            color: selectedIndex == 4
-                ? weeklyReportColor
-                : weeklyReportColor.withOpacity(0.45),
+            color: selectedIndex == 4 ? navColor : navColor.withOpacity(0.45),
           ),
           label: 'Profile',
         ),

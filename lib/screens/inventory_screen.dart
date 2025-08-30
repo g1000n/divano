@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import '../widgets/custom_navbar.dart'; // make sure the path is correct
+import '../widgets/custom_navbar.dart';
+import '../widgets/screen_header.dart';
+import 'dashboard_screen.dart';
+import 'qr_screen.dart';
+import 'profile_screen.dart';
 
 class InventoryScreen extends StatefulWidget {
   const InventoryScreen({super.key});
@@ -9,14 +13,36 @@ class InventoryScreen extends StatefulWidget {
 }
 
 class _InventoryScreenState extends State<InventoryScreen> {
-  // Constants
-  static const double dashboardLogoHeight = 59;
+  int _selectedIndex = 3; // Inventory tab index
 
-  static const headerStyle = TextStyle(
-    fontSize: 46,
-    fontWeight: FontWeight.bold,
-    color: Color(0xFFD8FF76), // same as dashboard
-  );
+  void _onNavTap(int index) {
+    if (index == _selectedIndex) return;
+    switch (index) {
+      case 0:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const DashboardScreen()),
+        );
+        break;
+      case 1:
+        // LogisticsScreen()
+        break;
+      case 2:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const QRScreen()),
+        );
+        break;
+      case 3:
+        break; // current screen
+      case 4:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const ProfileScreen()),
+        );
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,22 +56,9 @@ class _InventoryScreenState extends State<InventoryScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header with logo + title
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    "assets/images/secondary_logo.png",
-                    height: dashboardLogoHeight,
-                    width: dashboardLogoHeight,
-                  ),
-                  const SizedBox(width: 2),
-                  const Text('Inventory', style: headerStyle),
-                ],
-              ),
+              // Use reusable header
+              const ScreenHeader(title: "Inventory"),
               const SizedBox(height: 20),
-
-              // Placeholder for future Inventory content
               const Center(
                 child: Text(
                   "Inventory Content Here",
@@ -56,11 +69,10 @@ class _InventoryScreenState extends State<InventoryScreen> {
           ),
         ),
       ),
-
-      // Use the reusable CustomNavBar
-      bottomNavigationBar: const CustomNavBar(
-        selectedIndex: 3,
-      ), // Inventory tab index
+      bottomNavigationBar: CustomNavBar(
+        selectedIndex: _selectedIndex,
+        onTap: _onNavTap,
+      ),
     );
   }
 }

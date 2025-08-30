@@ -4,8 +4,7 @@ import 'profile_screen.dart';
 import 'qr_screen.dart';
 import 'transactions_screen.dart';
 import '../widgets/custom_navbar.dart'; // adjust path if needed
-
-// import 'logistics_screen.dart'; // if you have this screen
+import '../widgets/screen_header.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -65,7 +64,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  // Helper widget for bottom cards
   Widget bottomCard(
     String asset,
     String label,
@@ -96,6 +94,39 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
+  // New: handle navbar taps
+  void _onNavTap(int index) {
+    if (index == _selectedIndex) return;
+
+    switch (index) {
+      case 0:
+        // Already on Dashboard
+        break;
+      case 1:
+        // Uncomment if you have a LogisticsScreen
+        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const LogisticsScreen()));
+        break;
+      case 2:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const QRScreen()),
+        );
+        break;
+      case 3:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const InventoryScreen()),
+        );
+        break;
+      case 4:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const ProfileScreen()),
+        );
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,18 +140,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Dashboard Header
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    "assets/images/secondary_logo.png",
-                    height: dashboardLogoHeight,
-                    width: dashboardLogoHeight,
-                  ),
-                  const SizedBox(width: 2),
-                  const Text('Dashboard', style: headerStyle),
-                ],
-              ),
+              const ScreenHeader(title: "Dashboard"),
+
               const SizedBox(height: 20),
 
               // Weekly Report Card
@@ -238,7 +259,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
       ),
 
-      bottomNavigationBar: CustomNavBar(selectedIndex: _selectedIndex),
+      // Updated navbar
+      bottomNavigationBar: CustomNavBar(
+        selectedIndex: _selectedIndex,
+        onTap: _onNavTap,
+      ),
     );
   }
 }
