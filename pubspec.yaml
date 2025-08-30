@@ -76,6 +76,7 @@ flutter:
     - assets/images/incoming_dash_icon.png
     - assets/images/outgoing_dash_icon.png
     - assets/images/transactions_dash_icon.png
+    - assets/images/box_transc_icon.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 
