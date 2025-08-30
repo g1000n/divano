@@ -29,8 +29,8 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
   @override
   Widget build(BuildContext context) {
     final Color bgColor = const Color(0xFF1E2237);
-    final Color accentColor = const Color(0xFFCCFF66); // greenish accent
-    final Color cardBgColor = const Color(0xFF2A2E43);
+    final Color accentColor = const Color(0xFFCAEB78); // greenish accent
+
 
     return Scaffold(
       backgroundColor: bgColor,
