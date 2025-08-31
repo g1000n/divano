@@ -7,7 +7,6 @@ class LogoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF222531),
       body: GestureDetector(
         onTap: () {
           Navigator.pushReplacement(
@@ -17,7 +16,7 @@ class LogoPage extends StatelessWidget {
         },
         child: Center(
           child: Image.asset(
-            'assets/images/divano_full_logo.png', // make sure this matches your pubspec.yaml
+            'assets/images/divano_full_logo.png',
             width: 250, // adjust size as needed
           ),
         ),

@@ -4,7 +4,7 @@ import '../widgets/screen_header.dart';
 import 'dashboard_screen.dart';
 import 'inventory_screen.dart';
 import 'qr_screen.dart';
-import 'welcome_screen.dart'; // Updated for logout navigation
+import 'welcome_screen.dart'; 
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -14,13 +14,13 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  int _selectedIndex = 4; // Profile tab index
+  int _selectedIndex = 4; 
 
-  // Form field controllers
+
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  // Toggle password visibility
+  // toggle password visibility
   bool _obscurePassword = true;
 
   // Theme color
@@ -60,7 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1E2237),
+
 
       body: SafeArea(
         child: Padding(
@@ -198,7 +198,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 // Logout Button
                 SizedBox(
                   width: double.infinity, // Button full width
-                  height: 55, // Button height
+                  height: 55, 
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.pushReplacement(

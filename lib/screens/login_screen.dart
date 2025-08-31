@@ -42,7 +42,7 @@ class LoginScreen extends StatelessWidget {
 
             // Logo
             Positioned(
-              top: logoTopOffset, // adjust to move logo lower or higher
+              top: logoTopOffset, 
               left: 0,
               right: 0,
               child: Center(

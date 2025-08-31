@@ -77,7 +77,6 @@ class _InventoryScreenState extends State<InventoryScreen> {
     const Color greenColor = Color(0xFFCAEB78);
 
     return Scaffold(
-      backgroundColor: bgColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(

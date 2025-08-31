@@ -13,8 +13,11 @@ class QRScreen extends StatefulWidget {
 }
 
 class _QRScreenState extends State<QRScreen> {
-  // Handle navbar taps
+  int _selectedIndex = 2; // QR tab
+
   void _onNavTap(int index) {
+    if (index == _selectedIndex) return;
+
     switch (index) {
       case 0:
         Navigator.pushReplacement(
@@ -23,11 +26,10 @@ class _QRScreenState extends State<QRScreen> {
         );
         break;
       case 1:
-        // LogisticsScreen (if exists)
+        // Logistics screen (if exists)
         break;
       case 2:
-        // Already on QRScreen
-        break;
+        break; // Already on QRScreen
       case 3:
         Navigator.pushReplacement(
           context,
@@ -46,36 +48,67 @@ class _QRScreenState extends State<QRScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1E2237),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 18.0,
-          ).copyWith(top: 40),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              // Consistent header
-              ScreenHeader(title: "QR Scan"),
-              SizedBox(height: 20),
+        child: Column(
+          children: [
+            // Header
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 20),
+              child: ScreenHeader(title: "QR Scan"),
+            ),
 
-              // Placeholder for QR scanner
-              Expanded(
-                child: Center(
-                  child: Text(
-                    "QR Scanner Content Here",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
+            // box background
+            Expanded(
+              child: Container(
+                width: double.infinity,
+                color: const Color(0xFF434A64),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      "assets/images/qr_scanner_icon.png",
+                      width: 300,
+                      height: 300,
+                      fit: BoxFit.contain,
+                    ),
+                    const SizedBox(height: 45),
+
+                    GestureDetector(
+                      onTap: () {
+                        // Handle upload action
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Image.asset(
+                            "assets/images/upload_icon.png",
+                            width: 30,
+                            height: 30,
+                            color: const Color(0xFFD8FF76),
+                          ),
+                          const SizedBox(width: 15),
+                          const Text(
+                            "Upload QR",
+                            style: TextStyle(
+                              color: Color(0xFFD8FF76),
+                              fontSize: 25,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
 
-      // Bottom Navigation Bar
+      // Nav bar
       bottomNavigationBar: CustomNavBar(
-        selectedIndex: 2, // QR tab
+        selectedIndex: _selectedIndex,
         onTap: _onNavTap,
       ),
     );

@@ -15,7 +15,7 @@ class CustomNavBar extends StatelessWidget {
     const navColor = Color(0xFFD8FF76);
 
     return BottomNavigationBar(
-      backgroundColor: const Color(0xFF1E2237),
+      backgroundColor: const Color(0xFF222531),
       selectedItemColor: navColor,
       unselectedItemColor: navColor.withOpacity(0.45),
       currentIndex: selectedIndex,

@@ -26,12 +26,11 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
     };
   });
 
+  final Color bgColor = const Color(0xFF222531);
+  final Color greenColor = const Color(0xFFCAEB78);
+
   @override
   Widget build(BuildContext context) {
-    final Color bgColor = const Color(0xFF1E2237);
-    final Color accentColor = const Color(0xFFCAEB78); // greenish accent
-
-
     return Scaffold(
       backgroundColor: bgColor,
       body: SafeArea(
@@ -43,7 +42,6 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
               const ScreenHeader(title: "Transaction"),
               const SizedBox(height: 20),
 
-              // ✅ Centered Toggle Buttons
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -71,13 +69,13 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
 
               const SizedBox(height: 16),
 
-              // ✅ Sort by dropdown (shorter height)
+              // sort by drop down
               Row(
                 children: [
                   Text(
                     "Sort by: ",
                     style: TextStyle(
-                      color: accentColor,
+                      color: greenColor,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -85,19 +83,19 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 10,
-                      vertical: 0, // ✅ fixed shorter height
+                      vertical: 0,
                     ),
-                    height: 32, // ✅ matches toggle button height
+                    height: 32,
                     decoration: BoxDecoration(
-                      border: Border.all(color: accentColor),
+                      border: Border.all(color: greenColor),
                       borderRadius: BorderRadius.circular(7),
                     ),
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<String>(
                         value: selectedSort,
                         dropdownColor: bgColor,
-                        iconEnabledColor: accentColor,
-                        style: TextStyle(color: accentColor, fontSize: 13),
+                        iconEnabledColor: greenColor,
+                        style: TextStyle(color: greenColor, fontSize: 13),
                         items: sortOptions.map((String val) {
                           return DropdownMenuItem<String>(
                             value: val,
@@ -119,7 +117,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
 
               const SizedBox(height: 20),
 
-              // Transactions List
+              // transactions List
               Expanded(
                 child: ListView.separated(
                   itemCount: outgoingTransactions.length,
@@ -132,17 +130,16 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          // ✅ Just the icon (no surrounding box)
                           Image.asset(
                             'assets/images/box_transc_icon.png',
                             width: 30,
                             height: 30,
-                            color: accentColor,
+                            color: greenColor,
                           ),
 
                           const SizedBox(width: 16),
 
-                          // Title and description
+                          // title and description
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -150,7 +147,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                                 Text(
                                   item['title']!,
                                   style: TextStyle(
-                                    color: accentColor,
+                                    color: greenColor,
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -159,7 +156,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                                 Text(
                                   item['subtitle']!,
                                   style: TextStyle(
-                                    color: accentColor.withOpacity(0.6),
+                                    color: greenColor.withOpacity(0.6),
                                     fontSize: 13,
                                   ),
                                 ),
@@ -176,12 +173,12 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                             decoration: BoxDecoration(
                               color: Colors.transparent,
                               borderRadius: BorderRadius.circular(24),
-                              border: Border.all(color: accentColor),
+                              border: Border.all(color: greenColor),
                             ),
                             child: Text(
                               item['status']!,
                               style: TextStyle(
-                                color: accentColor,
+                                color: greenColor,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 12,
                               ),
@@ -199,7 +196,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                 child: InkWell(
                   borderRadius: BorderRadius.circular(30),
                   onTap: () {
-                    // ✅ Always go back to Dashboard instead of Welcome
+                    // goes back to dashboard
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
@@ -223,30 +220,27 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
     );
   }
 
-  // ✅ Reusable toggle button
   Widget _buildToggleButton({
     required String label,
     required bool isSelected,
     required VoidCallback onTap,
   }) {
-    final Color accentColor = const Color(0xFFCCFF66);
-
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(10),
       child: Container(
-        width: 165, // 🔥 adjustable length of toggle buttons
+        width: 165,
         height: 32,
         decoration: BoxDecoration(
-          color: isSelected ? accentColor : Colors.transparent,
+          color: isSelected ? greenColor : Colors.transparent,
           borderRadius: BorderRadius.circular(7),
-          border: Border.all(color: accentColor),
+          border: Border.all(color: greenColor),
         ),
         alignment: Alignment.center,
         child: Text(
           label,
           style: TextStyle(
-            color: isSelected ? Colors.black : accentColor,
+            color: isSelected ? Colors.black : greenColor,
             fontWeight: FontWeight.w600,
             fontSize: 14,
           ),

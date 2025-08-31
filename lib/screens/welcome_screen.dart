@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'login_screen.dart';
 import 'signup_screen.dart';
 
+const greenColor = Color(0xFFCAEB78);
+
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 
@@ -25,21 +27,20 @@ class WelcomeScreen extends StatelessWidget {
                 // Welcome image (higher)
                 Image.asset('assets/images/welcome.png', width: 200),
 
-                const SizedBox(height: 30), // less gap before Login
+                const SizedBox(height: 30), // less gap before login
                 // Login button
                 SizedBox(
                   width: double.infinity,
-                  height: 55, // slightly fatter
+                  height: 55, 
                   child: ElevatedButton(
                     onPressed: () {
-                      // ✅ navigate to LoginScreen
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => LoginScreen()),
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFCAEB78),
+                      backgroundColor: greenColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(6),
                       ),
@@ -51,34 +52,32 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 12), // slightly smaller gap
-
+                const SizedBox(height: 12),
                 // Sign Up button
                 SizedBox(
                   width: double.infinity,
                   height: 55,
                   child: OutlinedButton(
                     onPressed: () {
-                      // ✅ navigate to SignupScreen
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => SignupScreen()),
                       );
                     },
                     style: OutlinedButton.styleFrom(
-                      side: const BorderSide(color: Color(0xFFCAEB78)),
+                      side: const BorderSide(color: greenColor),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(6),
                       ),
                     ),
                     child: const Text(
                       'Sign Up',
-                      style: TextStyle(fontSize: 18, color: Color(0xFFCAEB78)),
+                      style: TextStyle(fontSize: 18, color: greenColor),
                     ),
                   ),
                 ),
 
-                const SizedBox(height: 5), // bring Forgot Password closer
+                const SizedBox(height: 5), 
                 // Forgot password
                 Align(
                   alignment: Alignment.centerRight,
@@ -90,7 +89,7 @@ class WelcomeScreen extends StatelessWidget {
                       'Forgot Password?',
                       style: TextStyle(
                         fontSize: 12,
-                        color: Color(0xFFCAEB78), // same green
+                        color: greenColor, // now consistent
                       ),
                     ),
                   ),
