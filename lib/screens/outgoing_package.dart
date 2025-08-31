@@ -1,70 +1,51 @@
 import 'package:flutter/material.dart';
 import 'dashboard_screen.dart';
 import 'qr_screen.dart';
-import 'outgoing_package.dart';
+import 'incoming_package.dart';
 
-
-// The IncomingPackage widget should be a StatelessWidget, not a MaterialApp.
-// This allows it to inherit the theme from the parent MaterialApp at the root.
-class IncomingPackage extends StatelessWidget {
-  const IncomingPackage({super.key});
+class OutgoingPackage extends StatefulWidget {
+  const OutgoingPackage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // Return a Scaffold directly, so it uses the theme defined in main.dart.
-    return const ShipmentsScreen();
-  }
+  State<OutgoingPackage> createState() => _OutgoingPackageState();
 }
 
-// Convert ShipmentsScreen to a StatefulWidget
-class ShipmentsScreen extends StatefulWidget {
-  const ShipmentsScreen({super.key});
-
-  @override
-  State<ShipmentsScreen> createState() => _ShipmentsScreenState();
-}
-
-class _ShipmentsScreenState extends State<ShipmentsScreen> {
-  // Define a list of all shipment data
+class _OutgoingPackageState extends State<OutgoingPackage> {
+  // Define a list of all shipment data for outgoing packages
   final List<Map<String, dynamic>> allShipments = [
     {
-      'orderNumber': '12345',
-      'status': 'Scanned',
-      'isScanned': true,
-      'isCompleted': true,
-    },
-    {
-      'orderNumber': '67890',
-      'status': 'Pending',
-      'isScanned': false,
-      'isCompleted': false,
+      'orderNumber': '54321',
+      'status': 'Delivered',
+      'isDelivered': true,
+      'isInTransit': true,
+      'recipient': 'Juan Dela Cruz',
     },
     {
       'orderNumber': '54321',
-      'status': 'Scanned',
-      'isScanned': true,
-      'isCompleted': true,
+      'status': 'In Transit',
+      'isDelivered': false,
+      'isInTransit': true,
+      'recipient': 'Gion Lobo',
     },
     {
       'orderNumber': '09876',
-      'status': 'Pending',
-      'isScanned': false,
-      'isCompleted': false,
+      'status': 'In Transit',
+      'isDelivered': false,
+      'isInTransit': true,
+      'recipient': 'Gion Lobo',
     },
   ];
 
-  // State variable to hold the current filter
   String currentFilter = 'All Orders';
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
-  // A method to filter shipments based on the selected button
   List<Map<String, dynamic>> get filteredShipments {
     if (currentFilter == 'All Orders') {
       return allShipments;
-    } else if (currentFilter == 'Scanned') {
-      return allShipments.where((shipment) => shipment['isScanned'] == true).toList();
-    } else if (currentFilter == 'Pending') {
-      return allShipments.where((shipment) => shipment['isScanned'] == false).toList();
+    } else if (currentFilter == 'Delivered') {
+      return allShipments.where((shipment) => shipment['isDelivered'] == true).toList();
+    } else if (currentFilter == 'In Transit') {
+      return allShipments.where((shipment) => shipment['isInTransit'] == true && shipment['isDelivered'] == false).toList();
     }
     return allShipments;
   }
@@ -87,16 +68,14 @@ class _ShipmentsScreenState extends State<ShipmentsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // The Scaffold background will now be explicitly set to white, overriding the global theme.
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        // The AppBar background and text style will now inherit from the global theme
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          // Redirect to DashboardScreen when the back button is pressed
           onPressed: () {
-            Navigator.of(context).push(
+            // Updated to redirect to DashboardScreen
+            Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => const DashboardScreen()),
             );
           },
@@ -112,24 +91,17 @@ class _ShipmentsScreenState extends State<ShipmentsScreen> {
               child: const Text(
                 'Incoming Shipments',
                 style: TextStyle(
-                  fontWeight: FontWeight.bold,
+                  color: Colors.grey,
                   fontSize: 18,
                 ),
               ),
             ),
             const SizedBox(width: 16),
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const OutgoingPackage()),
-                );
-              },
-              child: const Text(
-                'Outgoing Shipments',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 18,
-                ),
+            const Text(
+              'Outgoing Shipments',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
               ),
             ),
           ],
@@ -145,7 +117,6 @@ class _ShipmentsScreenState extends State<ShipmentsScreen> {
             children: [
               Row(
                 children: [
-                  // Button for 'All Orders'
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
@@ -165,57 +136,55 @@ class _ShipmentsScreenState extends State<ShipmentsScreen> {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  // Button for 'Pending'
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          currentFilter = 'Pending';
+                          currentFilter = 'Delivered';
                         });
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: currentFilter == 'Pending' ? Colors.black : Colors.white,
-                        foregroundColor: currentFilter == 'Pending' ? Colors.white : Colors.black,
-                        side: currentFilter == 'Pending' ? null : const BorderSide(color: Colors.grey),
+                        backgroundColor: currentFilter == 'Delivered' ? Colors.black : Colors.white,
+                        foregroundColor: currentFilter == 'Delivered' ? Colors.white : Colors.black,
+                        side: currentFilter == 'Delivered' ? null : const BorderSide(color: Colors.grey),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
                       ),
-                      child: const Text('Pending'),
+                      child: const Text('Delivered'),
                     ),
                   ),
                   const SizedBox(width: 8),
-                  // Button for 'Scanned'
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          currentFilter = 'Scanned';
+                          currentFilter = 'In Transit';
                         });
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: currentFilter == 'Scanned' ? Colors.black : Colors.white,
-                        foregroundColor: currentFilter == 'Scanned' ? Colors.white : Colors.black,
-                        side: currentFilter == 'Scanned' ? null : const BorderSide(color: Colors.grey),
+                        backgroundColor: currentFilter == 'In Transit' ? Colors.black : Colors.white,
+                        foregroundColor: currentFilter == 'In Transit' ? Colors.white : Colors.black,
+                        side: currentFilter == 'In Transit' ? null : const BorderSide(color: Colors.grey),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
                       ),
-                      child: const Text('Scanned'),
+                      child: const Text('In Transit'),
                     ),
                   ),
                 ],
               ),
               const SizedBox(height: 24),
-              // Use a ListView to dynamically build the OrderCard widgets
               ...filteredShipments.map((shipment) {
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 16.0),
-                  child: OrderCard(
+                  child: OutgoingOrderCard(
                     orderNumber: shipment['orderNumber'],
                     status: shipment['status'],
-                    isScanned: shipment['isScanned'],
-                    isCompleted: shipment['isCompleted'],
+                    isDelivered: shipment['isDelivered'],
+                    isInTransit: shipment['isInTransit'],
+                    recipient: shipment['recipient'],
                   ),
                 );
               }).toList(),
@@ -228,7 +197,7 @@ class _ShipmentsScreenState extends State<ShipmentsScreen> {
         onTap: _onItemTapped,
         backgroundColor: Colors.white,
         selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.black, // Set to the same color
+        unselectedItemColor: Colors.grey,
         showSelectedLabels: false,
         showUnselectedLabels: false,
         items: const [
@@ -250,19 +219,20 @@ class _ShipmentsScreenState extends State<ShipmentsScreen> {
   }
 }
 
-// The OrderCard widget remains a StatelessWidget
-class OrderCard extends StatelessWidget {
+class OutgoingOrderCard extends StatelessWidget {
   final String orderNumber;
   final String status;
-  final bool isScanned;
-  final bool isCompleted;
+  final bool isDelivered;
+  final bool isInTransit;
+  final String recipient;
 
-  const OrderCard({
+  const OutgoingOrderCard({
     super.key,
     required this.orderNumber,
     required this.status,
-    this.isScanned = false,
-    this.isCompleted = false,
+    this.isDelivered = false,
+    this.isInTransit = false,
+    required this.recipient,
   });
 
   @override
@@ -270,7 +240,7 @@ class OrderCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        color: isCompleted ? const Color(0xFFB8F56C) : const Color(0xFFFF9B61),
+        color: isDelivered ? const Color(0xFFB8F56C) : const Color(0xFFFF9B61),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -287,7 +257,7 @@ class OrderCard extends StatelessWidget {
                 ),
               ),
               const Text(
-                'J&T Delivery Services',
+                'LBC',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 16,
@@ -310,7 +280,7 @@ class OrderCard extends StatelessWidget {
                 width: 10,
                 height: 10,
                 decoration: BoxDecoration(
-                  color: isCompleted ? Colors.green : Colors.red,
+                  color: isDelivered ? Colors.green : Colors.orange,
                   shape: BoxShape.circle,
                 ),
               ),
@@ -319,15 +289,15 @@ class OrderCard extends StatelessWidget {
           const SizedBox(height: 8),
           const Text('Contents    : Ergo Chair'),
           const Text('Quantity    : 12'),
-          const Text('Supplier    : Herman Miller'),
+          Text('Recipient   : $recipient'),
           const SizedBox(height: 16),
-          _buildTrackingTimeline(isCompleted, isScanned),
+          _buildTrackingTimeline(isDelivered, isInTransit),
         ],
       ),
     );
   }
 
-  Widget _buildTrackingTimeline(bool isCompleted, bool isScanned) {
+  Widget _buildTrackingTimeline(bool isDelivered, bool isInTransit) {
     return Row(
       children: [
         _buildTimelineStep(
@@ -339,17 +309,17 @@ class OrderCard extends StatelessWidget {
         ),
         _buildTimelineStep(
           icon: Icons.local_shipping_outlined,
-          label: 'Order Arrived',
+          label: 'In Transit',
           date: '12 Aug 2025',
-          isCompleted: isCompleted,
-          isScanned: isScanned,
+          isCompleted: isInTransit,
+          isScanned: isInTransit,
         ),
         _buildTimelineStep(
-          icon: Icons.qr_code_scanner,
-          label: 'Item Scanned',
+          icon: Icons.check_circle_outline,
+          label: 'Order Delivered',
           date: '12 Aug 2025',
-          isCompleted: isCompleted,
-          isScanned: isScanned,
+          isCompleted: isDelivered,
+          isScanned: isDelivered,
           isLast: true,
         ),
       ],
