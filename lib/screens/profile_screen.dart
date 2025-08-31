@@ -4,7 +4,8 @@ import '../widgets/screen_header.dart';
 import 'dashboard_screen.dart';
 import 'inventory_screen.dart';
 import 'qr_screen.dart';
-import 'welcome_screen.dart'; 
+import 'welcome_screen.dart';
+import 'incoming_package.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -14,8 +15,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  int _selectedIndex = 4; 
-
+  int _selectedIndex = 4;
 
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -38,7 +38,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
         );
         break;
       case 1:
-        // Add LogisticsScreen if available
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const IncomingPackage()),
+        );
         break;
       case 2:
         Navigator.pushReplacement(
@@ -53,15 +56,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
         );
         break;
       case 4:
-        break; // already on Profile
+        // Already on Profile
+        break;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(
@@ -198,7 +200,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 // Logout Button
                 SizedBox(
                   width: double.infinity, // Button full width
-                  height: 55, 
+                  height: 55,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.pushReplacement(

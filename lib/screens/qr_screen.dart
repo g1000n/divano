@@ -4,6 +4,8 @@ import '../widgets/screen_header.dart';
 import 'dashboard_screen.dart';
 import 'inventory_screen.dart';
 import 'profile_screen.dart';
+import 'incoming_package.dart';
+
 
 class QRScreen extends StatefulWidget {
   const QRScreen({super.key});
@@ -26,7 +28,12 @@ class _QRScreenState extends State<QRScreen> {
         );
         break;
       case 1:
-        // Logistics screen (if exists)
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (_) => const IncomingPackage(),
+          ), // Logistics
+        );
         break;
       case 2:
         break; // Already on QRScreen
