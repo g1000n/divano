@@ -4,6 +4,7 @@ import '../widgets/screen_header.dart';
 import 'dashboard_screen.dart';
 import 'qr_screen.dart';
 import 'profile_screen.dart';
+import 'incoming_package.dart';
 
 class InventoryScreen extends StatefulWidget {
   const InventoryScreen({super.key});
@@ -22,6 +23,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
   // Handle navigation bar taps
   void _onNavTap(int index) {
     if (index == _selectedIndex) return;
+
     switch (index) {
       case 0:
         Navigator.pushReplacement(
@@ -30,7 +32,10 @@ class _InventoryScreenState extends State<InventoryScreen> {
         );
         break;
       case 1:
-        // LogisticsScreen() - implement if needed
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const IncomingPackage()),
+        );
         break;
       case 2:
         Navigator.pushReplacement(
@@ -39,7 +44,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
         );
         break;
       case 3:
-        break; // Already on Inventory
+        break;
       case 4:
         Navigator.pushReplacement(
           context,

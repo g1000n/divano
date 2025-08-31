@@ -97,8 +97,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
         // Already on Dashboard
         break;
       case 1:
-        // Uncomment if you have a LogisticsScreen
-        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const LogisticsScreen()));
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const IncomingPackage()),
+        );
         break;
       case 2:
         Navigator.pushReplacement(
