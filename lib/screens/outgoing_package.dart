@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dashboard_screen.dart';
 import 'qr_screen.dart';
 import 'incoming_package.dart';
+import 'add_shipment.dart';
 
 class OutgoingPackage extends StatefulWidget {
   const OutgoingPackage({super.key});
@@ -58,6 +59,10 @@ class _OutgoingPackageState extends State<OutgoingPackage> {
     if (index == 0) {
       Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => const DashboardScreen()),
+      );
+    } else if (index == 1) {
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => const AddShipmentScreen()),
       );
     } else if (index == 2) {
       Navigator.of(context).push(
@@ -197,7 +202,7 @@ class _OutgoingPackageState extends State<OutgoingPackage> {
         onTap: _onItemTapped,
         backgroundColor: Colors.white,
         selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.grey,
+        unselectedItemColor: Colors.black, // <-- This line was changed
         showSelectedLabels: false,
         showUnselectedLabels: false,
         items: const [
@@ -287,9 +292,9 @@ class OutgoingOrderCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-          const Text('Contents    : Ergo Chair'),
-          const Text('Quantity    : 12'),
-          Text('Recipient   : $recipient'),
+          const Text('Contents    : Ergo Chair'),
+          const Text('Quantity    : 12'),
+          Text('Recipient   : $recipient'),
           const SizedBox(height: 16),
           _buildTrackingTimeline(isDelivered, isInTransit),
         ],

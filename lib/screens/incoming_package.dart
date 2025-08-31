@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dashboard_screen.dart';
 import 'qr_screen.dart';
 import 'outgoing_package.dart';
-
+import 'add_shipment.dart';
 
 // The IncomingPackage widget should be a StatelessWidget, not a MaterialApp.
 // This allows it to inherit the theme from the parent MaterialApp at the root.
@@ -78,12 +78,17 @@ class _ShipmentsScreenState extends State<ShipmentsScreen> {
       Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => const DashboardScreen()),
       );
+    } else if (index == 1) {
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => const AddShipmentScreen()),
+      );
     } else if (index == 2) {
       Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => const QRScreen()),
       );
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
