@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dashboard_screen.dart';
 import 'qr_screen.dart';
+import 'outgoing_package.dart';
+
 
 // The IncomingPackage widget should be a StatelessWidget, not a MaterialApp.
 // This allows it to inherit the theme from the parent MaterialApp at the root.
@@ -99,21 +101,35 @@ class _ShipmentsScreenState extends State<ShipmentsScreen> {
             );
           },
         ),
-        title: const Row(
+        title: Row(
           children: [
-            Text(
-              'Incoming Shipments',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const IncomingPackage()),
+                );
+              },
+              child: const Text(
+                'Incoming Shipments',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
               ),
             ),
-            SizedBox(width: 16),
-            Text(
-              'Outgoing Shipments',
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 18,
+            const SizedBox(width: 16),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const OutgoingPackage()),
+                );
+              },
+              child: const Text(
+                'Outgoing Shipments',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 18,
+                ),
               ),
             ),
           ],
