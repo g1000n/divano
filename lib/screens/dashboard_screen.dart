@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'inventory_screen.dart';
 import 'profile_screen.dart';
 import 'qr_screen.dart';
+import 'incoming_package.dart';
+import 'outgoing_package.dart';
 import 'transactions_screen.dart';
 import '../widgets/custom_navbar.dart'; // adjust path if needed
 import '../widgets/screen_header.dart';
@@ -195,7 +197,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => const TransactionsScreen(),
+                            builder: (_) => const IncomingPackage(),
                           ),
                         );
                       },
@@ -209,7 +211,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => const TransactionsScreen(),
+                            builder: (_) => const OutgoingPackage(),
                           ),
                         );
                       },
