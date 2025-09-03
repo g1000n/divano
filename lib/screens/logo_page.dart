@@ -17,7 +17,7 @@ class LogoPage extends StatelessWidget {
         child: Center(
           child: Image.asset(
             'assets/images/divano_full_logo.png',
-            width: 250, // adjust size as needed
+            width: 250, // adjust size
           ),
         ),
       ),

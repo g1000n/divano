@@ -7,11 +7,10 @@ class SignupScreen extends StatelessWidget {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
-  // Adjust this to move the entire input block up/down
+
   final double inputTopOffset =
       300; // change this value to position the input block
 
-  // Adjust logo position
   final double logoTopOffset = 150;
 
   @override
@@ -57,7 +56,7 @@ class SignupScreen extends StatelessWidget {
               ),
             ),
 
-            // Input block (Username / Password / Confirm Password)
+            // Input block 
             Positioned(
               top: inputTopOffset,
               left: 24,

@@ -17,21 +17,16 @@ class WelcomeScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Secondary Logo (smaller)
-                Image.asset(
-                  'assets/images/secondary_logo.png',
-                  width: 120, // smaller than before
-                ),
+                Image.asset('assets/images/secondary_logo.png', width: 120),
                 const SizedBox(height: 15),
 
-                // Welcome image (higher)
                 Image.asset('assets/images/welcome.png', width: 200),
 
-                const SizedBox(height: 30), // less gap before login
+                const SizedBox(height: 30),
                 // Login button
                 SizedBox(
                   width: double.infinity,
-                  height: 55, 
+                  height: 55,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(
@@ -77,7 +72,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 5), 
+                const SizedBox(height: 5),
                 // Forgot password
                 Align(
                   alignment: Alignment.centerRight,

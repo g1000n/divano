@@ -15,7 +15,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
 
   final List<String> sortOptions = ['Date', 'Amount', 'Name'];
 
-  // Dummy transaction data
+
   final List<Map<String, String>> outgoingTransactions = List.generate(5, (
     index,
   ) {

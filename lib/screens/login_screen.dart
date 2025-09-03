@@ -6,9 +6,8 @@ class LoginScreen extends StatelessWidget {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  // You can adjust these values to reposition logo and input block
-  final double logoTopOffset = 270; // Moves the logo up/down
-  final double inputTopOffset = 430; // Moves username/password block up/down
+  final double logoTopOffset = 270; 
+  final double inputTopOffset = 430; 
 
   @override
   Widget build(BuildContext context) {
